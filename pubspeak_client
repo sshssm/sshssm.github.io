@@ -1,0 +1,41 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+# Make sure you call this script with the command: source
+
+lastvalue="ff44ee"
+username="null"
+
+function pubspeak() {
+  if [ "$username" = "null" ];
+  then
+    read -p "Please enter a username: " username
+    echo "Thank you for your cooperation"
+  else
+    message="$username"": ""$1"
+    echo "$message" > ~/.etc/.pubspeak
+  fi
+}
+
+
+function _pubspeak_client() {
+  while :
+  do
+
+    value=$(md5sum < ~/.etc/.pubspeak)
+    if [ "$value" = "$lastvalue" ];
+    then
+      sleep 2
+    else
+      echo
+      echo "--------STATE SPONSORED MESSAGE--------"
+      echo
+      cat ~/.etc/.pubspeak
+      echo
+      echo "--------STATE SPONSORED MESSAGE--------"
+      lastvalue="$value"
+    fi
+
+  done
+}
+
+_pubspeak_client &
