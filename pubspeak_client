@@ -10,6 +10,23 @@ function pubspeak() {
   then
     read -p "Please enter a username: " username
     echo "Thank you for your cooperation"
+
+  elif [ "$1" = "-help" ];
+  then
+    cat << delim
+    Welcome to Pubspeak!
+    With this script you can broadcast messages to your entire terminal
+    Here are some extra commands:
+    -txt   ; Sends the text file contents as a message
+    -v     ; Sends the clipboard
+    -help  ; Displays this message
+delim
+    # End of help
+
+  elif [ "$1" = "-txt" ];
+  then
+    echo "$username"": " > ~/.etc/.pubspeak
+    cat "$2" >> ~/.etc/.pubspeak
   else
     message="$username"": ""$1"
     echo "$message" > ~/.etc/.pubspeak
