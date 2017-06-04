@@ -18,7 +18,7 @@ function pubspeak() {
     With this script you can broadcast messages to your entire terminal
     Here are some extra commands:
     -txt   ; Sends the text file contents as a message
-    -v     ; Sends the clipboard
+    -tedit ; Opens a temporary nano file to send a message
     -help  ; Displays this message
 delim
     # End of help
@@ -27,6 +27,19 @@ delim
   then
     echo "$username"": " > ~/.etc/.pubspeak
     cat "$2" >> ~/.etc/.pubspeak
+
+  elif [ "$1" = "-tedit" ];
+  then
+    nano ~/.tmp
+    read -p "Done editing?  (y/n): " x
+    if [ "$x" = "y" ];
+    then
+      echo "$username"": " > ~/.etc/.pubspeak
+      cat ~/.tmp >> ~/.etc/.pubspeak
+    else
+      echo "Ok then restart"
+    fi
+
   else
     message="$username"": ""$1"
     echo "$message" > ~/.etc/.pubspeak
