@@ -20,6 +20,7 @@ function pubspeak() {
     -txt   ; Sends the text file contents as a message
     -tedit ; Opens a temporary nano file to send a message
     -help  ; Displays this message
+    -reset ; Resets the client
 delim
     # End of help
 
@@ -30,6 +31,7 @@ delim
 
   elif [ "$1" = "-tedit" ];
   then
+    rm ~/.tmp
     nano ~/.tmp
     read -p "Done editing?  (y/n): " x
     if [ "$x" = "y" ];
@@ -38,6 +40,16 @@ delim
       cat ~/.tmp >> ~/.etc/.pubspeak
     else
       echo "Ok then restart"
+    fi
+
+  elif [ "$1" = "-reset" ];
+  then
+    read -p "Exit the session? (Y/n): " x
+    if [ "$x" = "Y" ];
+    then
+      exit
+    else
+      echo "Ok then"
     fi
 
   else
